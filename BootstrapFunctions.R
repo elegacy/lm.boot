@@ -13,14 +13,11 @@
 ####                           single sample.               ####
 ################################################################
 EfronBoot <- function(data, B=100){
-
   #Function should check inputs are correct
-
   bootData <- matrix(NA, nrow=length(data), ncol=B) #matrix to fill with bootstrap samples
   for(b in 1:B){
     bootData[ , b] <- sample(data, size=length(data), replace=TRUE) #SRSWR from orig. data
   }
-
   meanBootData <- apply(bootData, 2, mean) #get mean from each bootstrap sample
   return(list(bootstrapMeans =meanBootData, bootstrapSamples=bootData))
 }
@@ -43,7 +40,6 @@ EfronBoot <- function(data, B=100){
 ################################################################
 BootCI <- function(bootstrapMeans, alpha=0.05, type="two.sided"){
    #Function should check inputs are correct
-
    sortedMeans <- bootstrapMeans[order(bootstrapMeans)]
    if(type=="two.sided"){
      upper <- sortedMeans[ceiling(length(bootstrapMeans)*(1-alpha/2))]
@@ -55,7 +51,6 @@ BootCI <- function(bootstrapMeans, alpha=0.05, type="two.sided"){
      upper <- sortedMeans[ceiling(length(bootstrapMeans)*(1-alpha))]
      lower <- -Inf
    }
-
    print(paste("(", round(lower,2), ", ", round(upper,2), ")", sep='')); flush.console();
    return(list(lower=lower, upper=upper))
 }
@@ -78,9 +73,7 @@ BootCI <- function(bootstrapMeans, alpha=0.05, type="two.sided"){
 #####   means from each bootstrap sample                   #####
 ################################################################
 Samp2Boot <- function(data1, data2, dataType, B=100){
-
   #Function should check inputs are correct
-
   if(dataType=="paired"){
     dataDiff <- data1-data2
     bootstrapDiffMeans <- rep(NA, B)
@@ -97,7 +90,6 @@ Samp2Boot <- function(data1, data2, dataType, B=100){
       bootstrapDiffMeans[b] <- mean(bootData1Samp) - mean(bootData2Samp)
     }
   }
-
   return(list(bootstrapDiffMeans=bootstrapDiffMeans))
 }
 
