@@ -64,7 +64,8 @@ residual.boot <- function(formula, B=1000, seed=NULL){
     stop("Number of bootstrap samples, B, must be a constant.")
   }
   else if( B < n){
-    stop("Number of bootstrap samples is recommended to be more than the data length.")
+    #this should be a warning instead of an error
+    #stop("Number of bootstrap samples is recommended to be more than the data length.")
   }
 
 
