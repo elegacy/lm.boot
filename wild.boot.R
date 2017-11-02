@@ -53,7 +53,8 @@ wild.boot <- function(formula, B=1000, seed=NULL, distn="normal"){
   #  stop("Response must be a vector (not multivariate).")
   #}
   #else{
-    resp <- eval(lhs(formula)) ##get the response variable
+    calling.env <- parent.frame()
+    resp <- eval(lhs(formula), envir=calling.env) ##get the response variable
 
     if(is.matrix(resp)!=TRUE && is.atomic(resp)!=TRUE){
        stop("Response must be a vector or matrix.")
